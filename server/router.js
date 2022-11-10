@@ -92,6 +92,7 @@ async function get(req,res) {
 	
 	
 	//!================================FINISHING================================
+	res.setHeader('Content-Type','text/html');
 	res.writeHead(status);
 	res.end(
 		process.template.replace(/<!--\s*@head\s*-->/,head).replace(/\/\*\s*@style\s*\*\//,css || '').replace(/<!--\s*@body\s*-->/,html)
