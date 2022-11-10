@@ -3,14 +3,17 @@ import { promisify } from "util";
 
 /** @type {import("mysql").Connection} */
 const db = createConnection({
-	host: "localhost",
-  user: "root",
-  password: "dbwong",
-	database : "rating"
+	host: "sql308.epizy.com",
+  user: "epiz_32561650",
+  password: "Z8FmouOT7f",
+	database : "epiz_32561650_rating"
 });
 
 db.connect(err=>{
-	if (err) throw err;
+	if (err) {
+		console.log(err)
+		throw err;
+	}
 	console.log("DB Connected...")
 })
 
