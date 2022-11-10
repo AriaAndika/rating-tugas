@@ -1,7 +1,7 @@
 {
 	"public" : "public",
 	"rewrite" : [
-		["/", "/home"],
+		["/", "/rating"],
 		["/feedback/**", "/feedback"]
 	]
 }

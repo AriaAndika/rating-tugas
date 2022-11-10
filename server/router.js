@@ -114,7 +114,9 @@ async function api(req,res) {
 	const data = await import(`../pages${path}.js`)
 		.then(async e=>await e[req.method.toLowerCase()]({path,query,post})).catch( err => {console.log('server/router/118:',err);stats = 400;return {err : "error"}});
 		
-	console.log('router:',data)
+	if (req.method == 'POST'){
+		console.log('Return post request:',data);
+	}
 	res.setHeader(`Content-Type`,`application/json`);
 	res.writeHead(stats);
 	res.end(JSON.stringify(data));

@@ -13,7 +13,8 @@ if (process.meta.public){
 	process.public = await readdirRecursive(process.meta.public);
 }
 
-await import('./src/index.js').catch( ()=>{} )
+// initial script
+await import('./src/index.js').catch( err =>{console.log('src/index:',err)} )
 
 
 listen(process.env.PORT, p => console.log(`listening in ${p}...`))

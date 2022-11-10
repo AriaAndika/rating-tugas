@@ -16,7 +16,29 @@
       `/api/db`,
       {method : 'get'}
     ).then(e=>e.json())
-    return data;
+    //================================================================      
+    let [senang,biasa,kurang] = [0,0,0];
+    data.forEach( r => {
+      if (r.rating == 1){
+        senang++;
+      }
+      else if (r.rating == 2){
+        biasa++;
+      }
+      else if (r.rating == 3){
+        kurang++;
+      }
+    });
+    const elems = document.querySelectorAll('#data-mati');
+    
+    for (let i = 0; i < 3; i++) {
+      if (i == 0)
+        elems[0].innerHTML = senang;
+      else if (i == 1)
+        elems[1].innerHTML = biasa;
+      else if (i == 2)
+        elems[2].innerHTML = kurang;
+    };
   };
   window.push = async (c) => {
     const elNama = document.querySelector('.nama');
@@ -41,6 +63,10 @@
     elNama.value = ''
     elKomentar.value = ''
     
+    const elems = document.querySelectorAll('#data-mati');
+    elems.forEach(e => {
+      e.innerHTML = 'loading...'
+    });
     
 		await fetch(
 			`/api/db`,
@@ -51,19 +77,16 @@
 			}
 		)
     
-    const elems = document.querySelectorAll('#data-mati')
+    await window.pull();
     
-    const num = await window.pull();
-    
-    Object.entries(num).forEach((s) => {
-      console.log(s)
-      if (s[0] == 'senang')
-        elems[0].innerHTML = s[1];
-      else if (s[0] == 'biasa')
-        elems[1].innerHTML = s[1];
-      else if (s[0] == 'kurang')
-        elems[2].innerHTML = s[1];
-    })
+    // Object.entries(num).forEach((s) => {
+    //   if (s[0] == 'senang')
+    //     elems[0].innerHTML = s[1];
+    //   else if (s[0] == 'biasa')
+    //     elems[1].innerHTML = s[1];
+    //   else if (s[0] == 'kurang')
+    //     elems[2].innerHTML = s[1];
+    // })
 	};
 </script>
   </head>
