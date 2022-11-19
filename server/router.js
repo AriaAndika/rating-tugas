@@ -121,6 +121,7 @@ async function get(req,res) {
 	res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
 	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
 	res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
+	res.setHeader('Access-Control-Allow-Headers', req.headers.origin);
 	res.writeHead(status);
 	res.end(
 		process.template.replace(/<!--\s*@head\s*-->/,head).replace(/\/\*\s*@style\s*\*\//,css || '').replace(/<!--\s*@body\s*-->/,html)
@@ -155,6 +156,7 @@ async function api(req,res) {
 	res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
 	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
 	res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
+	res.setHeader('Access-Control-Allow-Headers', req.headers.origin);
 	res.writeHead(stats);
 	res.end(JSON.stringify(data));
 }
