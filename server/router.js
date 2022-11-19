@@ -181,10 +181,11 @@ function getPostData(req) {
  * @param {ServerResponse} res 
  */
 function preflight(req,res) {
-	res.setHeader('Content-Type','text/plain');
-	res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
-	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
-	res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
-	res.writeHead(200);
+	res.writeHead(200,{
+		'Content-Type':'text/plain',
+		'Access-Control-Allow-Origin': '*',
+		'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
+		'Access-Control-Max-Age': 2592000
+	});
 	res.end('options ok !');
 }
