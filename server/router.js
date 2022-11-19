@@ -130,6 +130,7 @@ async function get(req,res) {
  * @param {ServerResponse} res 
  */
 async function api(req,res) {
+	console.log(req.method.toLowerCase?.());
 	let stats = 200;
 	let {query,path} = parseUrl(req.url);
 	let post;
