@@ -6,7 +6,7 @@ export default async function( {query} ) {
 	let { data, error } = await process.supabase
 		.from('rating')
 		.select('*');
-		
+	
 	let table = ''
 	let rate = e => e == 0 ? 'Senang' : e == 1 ? 'Biasa' : 'Kurang';
 	for (let i = 0; i < data.length; i++) {

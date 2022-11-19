@@ -9,78 +9,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>RATING KEPUASAN</title>
-    
-<script type="module">
-  window.pull = async () => {
-    const data = await fetch(
-      `/api/db`,
-      {method : 'get'}
-    ).then(e=>e.json())
-    //================================================================      
-    let [senang,biasa,kurang] = [0,0,0];
-    data.forEach( r => {
-      if (r.rating == 1){
-        senang++;
-      }
-      else if (r.rating == 2){
-        biasa++;
-      }
-      else if (r.rating == 3){
-        kurang++;
-      }
-    });
-    const elems = document.querySelectorAll('#data-mati');
-    
-    for (let i = 0; i < 3; i++) {
-      if (i == 0)
-        elems[0].innerHTML = senang;
-      else if (i == 1)
-        elems[1].innerHTML = biasa;
-      else if (i == 2)
-        elems[2].innerHTML = kurang;
-    };
-  };
-  window.push = async (c) => {
-    const elNama = document.querySelector('.nama');
-    const elKomentar = document.querySelector('.komentar');
-    const o = document.querySelector('.noinp');
-    
-    if (elNama.value == '' && elKomentar.value == ''){
-      o.style.color = 'red';
-      o.innerHTML = `Tolong masukan nama dan kesan`
-      return;
-    }
-    
-		const data = {
-			nama : document.querySelector('.nama').value,
-			rating : c,
-			komentar : document.querySelector('.komentar').value
-		}
-		console.log(data)
-    
-    o.style.color = 'lime'
-    o.innerHTML = `Terima Kasih atas masukan anda`
-    elNama.value = ''
-    elKomentar.value = ''
-    
-    const elems = document.querySelectorAll('#data-mati');
-    elems.forEach(e => {
-      e.innerHTML = 'loading...'
-    });
-    
-		await fetch(
-			`/api/db`,
-			{
-				method : 'post',
-				headers : {  "Content-Type" : "application/json" },
-				body : JSON.stringify(data)
-			}
-		)
-    
-    await window.pull();
-    
-	};
-</script>
   </head>
   <!-- <body> -->
 	  <div class="jumbotron jumbotron-fluid bg-info text-white">
@@ -127,7 +55,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h5>SENANG</h5>
-                                <h2 id="data-mati"> {{senang}} </h2>
+                                <h2 id="data-mati" ref="senang"> loading... </h2>
                                 <h5>suara </h5>
                             </div>
                                 <div class="col-md-4">
@@ -146,7 +74,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h5>BIASA</h5>
-                                <h2 id="data-mati"> {{biasa}} </h2>
+                                <h2 id="data-mati" ref="biasa"> loading... </h2>
                                 <h5>suara </h5>
                             </div>
                             <div class="col-md-4">
@@ -166,7 +94,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h5>KURANG</h5>
-                                <h2 id="data-mati"> {{kurang}} </h2>
+                                <h2 id="data-mati" ref="kurang"> loading... </h2>
                                 <h5>suara </h5>
                             </div>
                             <div class="col-md-4">
@@ -185,5 +113,6 @@
             <div class="noinp"></div>
   <!--Akhir Container-->
 <div style="height: 10rem;margin: 1rem;"></div>
+<script type="module" src="/fetch.js"></script>
   <!-- </body>
 </html> -->

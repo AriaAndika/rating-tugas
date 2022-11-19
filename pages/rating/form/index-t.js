@@ -1,11 +1,11 @@
 
 
-export default async function( {query} ) {
+export default function( {query} ) {
 	
 	// const ratings = await process.query(`select ${query.q == 'all' ? `*` : 'rating'} from rating`)
-	let { data: ratings, error } = await process.supabase
-		.from('rating')
-		.select('rating');
+	// let { data: ratings, error } = await process.supabase
+	// 	.from('rating')
+	// 	.select('rating');
 		
 	let [senang,biasa,kurang] = [0,0,0];
 	

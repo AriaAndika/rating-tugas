@@ -4,7 +4,7 @@
 export async function get({query}) {
 	let { data: rating, error } = await process.supabase
 		.from('rating')
-		.select('rating');
+		.select(query.m == 'a' ? '*' : 'rating');
 		
 	return rating;
 }
@@ -20,7 +20,7 @@ export async function post({post}) {
 	]);
 	console.log('insert return:',data,error || 'success')
 		
-	return data;
+	// return data;
 }
 
 

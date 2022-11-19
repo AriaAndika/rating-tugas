@@ -4,6 +4,26 @@ import { createServer, IncomingMessage, ServerResponse } from "http";
 import { parseUrl, If } from "./utility.js";
 import { parseHTML } from "./parser.js";
 
+export const mediaTypes = {
+	// app
+	js : `application/javascript`,
+	json : `application/json`,
+	urlencoded : `application/x-www-form-urlencoded`,
+	// img
+	gif : `	image/gif`,
+	jpg :  `image/jpeg`,
+	png : `image/png`,
+	ico : 'image/vnd',
+	// txt
+	css : `text/css`,
+	csv : `text/csv`,
+	html : `text/html`,
+	plain : `text/plain`,
+	xml : `text/xml`,
+	// vid
+	mpeg : `video/mpeg`,
+	mp4 : `video/mp4`
+}
 
 export function listen(port = 4040, callback){
 	createServer((req,res) => {
@@ -42,8 +62,10 @@ async function get(req,res) {
 		isDone = true;
 		async function _get() {
 			var s = createReadStream(`${process.meta.public}${path}`);
+			const ex = path.split('.');
+			console.log(ex,mediaTypes[ex[ex.length-1]])
 			s.on('open', function () {
-				res.setHeader('Content-Type', `image/jpeg`);
+				res.setHeader('Content-Type', mediaTypes[ex[ex.length-1]] );
 				s.pipe(res);
 			});
 		}
@@ -116,7 +138,7 @@ async function api(req,res) {
 		.then(async e=>await e[req.method.toLowerCase()]({path,query,post})).catch( err => {console.log('server/router/118:',err);stats = 400;return {err : "error"}});
 		
 	if (req.method == 'POST'){
-		console.log('Return post request:',data);
+		// console.log('Return post request:',data);
 	}
 	res.setHeader(`Content-Type`,`application/json`);
 	res.writeHead(stats);
