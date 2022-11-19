@@ -187,7 +187,7 @@ function preflight(req,res) {
 	res.setHeader('Access-Control-Request-Method', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
 	res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
-	res.setHeader('Access-Control-Allow-Headers', req.headers.origin);
+	res.setHeader('Access-Control-Allow-Headers', '*');
 	res.writeHead(200);
 	res.end('options ok !');
 	console.log('preflight from:',req.headers.origin || 'root');
