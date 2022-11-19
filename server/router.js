@@ -135,14 +135,15 @@ async function api(req,res) {
 	let {query,path} = parseUrl(req.url);
 	let postData;
 	
-	if (req.method == 'POST'){
+	if (req.method == 'POST' || req.method == 'OPTIONS'){
 		postData = await getPostData(req).then(e=>JSON.parse(e));
+		console.log('first-time: retrieved post:',postData);
 	}
 	
 	const data = await import(`../pages${path}.js`)
 		.then(async e=>await e[req.method.toLowerCase?.()]({path,query,postData})).catch( err => {console.log('server/router/118:',err);stats = 400;return {err : "error"}});
 		
-	if (req.method == 'POST'){
+	if (req.method == 'POST' || req.method == 'OPTIONS'){
 		console.log('Return post request:',postData);
 	}else{
 		console.log(`Request method ${req.method}`)
