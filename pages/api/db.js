@@ -14,13 +14,13 @@ export async function options({postData}) {
 }
 
 
-export async function post({post}) {	
+export async function post({postData}) {	
 	const { data, error } = await process.supabase
 	.from('rating')
 	.insert([
-		{ nama: post.nama, rating: post.rating, komentar: post.komentar },
+		{ nama: postData.nama, rating: postData.rating, komentar: postData.komentar },
 	]);
-	console.log('write:',`\n${post}`,error || 'success')
+	console.log('write:',`\n${postData}`,error || 'success')
 		
 	// return data;
 }
