@@ -20,6 +20,7 @@ export const mediaTypes = {
 	html : `text/html`,
 	plain : `text/plain`,
 	xml : `text/xml`,
+	webp : 'image/webp',
 	// vid
 	mpeg : `video/mpeg`,
 	mp4 : `video/mp4`

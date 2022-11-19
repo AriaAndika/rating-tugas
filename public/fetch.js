@@ -52,8 +52,16 @@ window.push = async (c) => {
 	elNama.value = ''
 	elKomentar.value = ''
 	
-	const elems = document.querySelectorAll('#data-mati');
-	elems.forEach(e => {e.innerHTML = 'loading...'});
+	display.forEach(e => {e.innerHTML = 'loading...'});
+	
+	await fetch(
+		'/api/db',
+		{
+			method : 'POST',
+			headers : {'Content-Type' : 'application/json'},
+			body : JSON.stringify(data)
+		}
+	)
 	
 	await window.pull();
 	
