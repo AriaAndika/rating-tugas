@@ -9,8 +9,8 @@ export async function get({query}) {
 	return rating;
 }
 
-export async function options({post}) {
-	await post({post})
+export async function options({postData}) {
+	return post({postData});
 }
 
 

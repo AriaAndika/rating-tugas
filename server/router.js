@@ -133,17 +133,17 @@ async function api(req,res) {
 	console.log(req.method.toLowerCase?.());
 	let stats = 200;
 	let {query,path} = parseUrl(req.url);
-	let post;
+	let postData;
 	
 	if (req.method == 'POST'){
-		post = await getPostData(req).then(e=>JSON.parse(e));
+		postData = await getPostData(req).then(e=>JSON.parse(e));
 	}
 	
 	const data = await import(`../pages${path}.js`)
-		.then(async e=>await e[req.method.toLowerCase?.()]({path,query,post})).catch( err => {console.log('server/router/118:',err);stats = 400;return {err : "error"}});
+		.then(async e=>await e[req.method.toLowerCase?.()]({path,query,post: postData})).catch( err => {console.log('server/router/118:',err);stats = 400;return {err : "error"}});
 		
 	if (req.method == 'POST'){
-		console.log('Return post request:',post);
+		console.log('Return post request:',postData);
 	}else{
 		console.log(`Request method ${req.method}`)
 	}
