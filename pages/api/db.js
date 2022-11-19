@@ -18,7 +18,7 @@ export async function post({post}) {
 	.insert([
 		{ nama: post.nama, rating: post.rating, komentar: post.komentar },
 	]);
-	console.log('insert return:',data,error || 'success')
+	console.log('write:',`\n${post}`,error || 'success')
 		
 	// return data;
 }
