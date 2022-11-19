@@ -28,7 +28,9 @@ export const mediaTypes = {
 
 export function listen(port = 4040, callback){
 	createServer((req,res) => {
-		if (req.url.match(/\/api\//))
+		if (req.method == 'OPTIONS')
+			preflight(req,res);
+		else if (req.url.match(/\/api\//))
 			api(req,res);
 		else if (req.method == 'GET') 
 			get(req,res)
@@ -172,4 +174,17 @@ function getPostData(req) {
 			reject(error);
 		}
 	})
+}
+
+/**
+ * @param {IncomingMessage} req 
+ * @param {ServerResponse} res 
+ */
+function preflight(req,res) {
+	res.setHeader('Content-Type','text/plain');
+	res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
+	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+	res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
+	res.writeHead(200);
+	res.end('options ok !');
 }
