@@ -118,10 +118,10 @@ async function get(req,res) {
 	
 	//!================================FINISHING================================
 	res.setHeader('Content-Type','text/html');
-	// res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
-	// res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
-	// res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
-	// res.setHeader('Access-Control-Allow-Headers', '*');
+	res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
+	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+	res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
+	res.setHeader('Access-Control-Allow-Headers', '*');
 	res.writeHead(status);
 	res.end(
 		process.template.replace(/<!--\s*@head\s*-->/,head).replace(/\/\*\s*@style\s*\*\//,css || '').replace(/<!--\s*@body\s*-->/,html)
@@ -153,10 +153,10 @@ async function api(req,res) {
 	}
 	
 	res.setHeader('Content-Type','application/json');
-	// res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
-	// res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
-	// res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
-	// res.setHeader('Access-Control-Allow-Headers', req.headers.origin);
+	res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
+	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+	res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
+	res.setHeader('Access-Control-Allow-Headers', '*');
 	res.writeHead(stats);
 	res.end(JSON.stringify(data));
 }
