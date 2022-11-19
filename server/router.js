@@ -144,6 +144,8 @@ async function api(req,res) {
 		
 	if (req.method == 'POST'){
 		console.log('Return post request:',post);
+	}else{
+		console.log(`Request method ${req.method}`)
 	}
 	
 	res.setHeader('Content-Type','application/json');
