@@ -2,7 +2,7 @@
 import { init,serve,user } from "./router.js";
 import { setTimeout } from "timers/promises";
 import { readFile } from "fs/promises";
-import { ServerResponse } from "http";
+import { IncomingMessage, ServerResponse } from "http";
 
 
 
@@ -21,7 +21,8 @@ await serve('public')
 
 //!================================================================
 
-app.get('/',(req,res)=>{
+app.get('/',(/** @type {any} */ req,/** @type {ServerResponse<IncomingMessage>} */ res)=>{
+	res.setHeader('Content-Type','text/html')
 	res.end(cache.home);
 })
 
