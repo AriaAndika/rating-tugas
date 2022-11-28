@@ -93,5 +93,5 @@ export class user{
 }
 
 export const write = async (db) => {
-	writeFile('server/db.json',JSON.stringify(db));
+	writeFile('db.json',JSON.stringify(db));
 }
