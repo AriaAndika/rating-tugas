@@ -1,4 +1,3 @@
-debug/
-node_modules/
 .vscode/
-export.sql
+node_modules/
+temp/
