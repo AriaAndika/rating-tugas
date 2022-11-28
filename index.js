@@ -8,7 +8,7 @@ import { ServerResponse } from "http";
 const app = init();
 const db = {}
 
-Object.entries(JSON.parse(await readFile('server/db.json','utf-8'))).forEach(([id,data])=>{
+Object.entries(JSON.parse(await readFile('db.json','utf-8'))).forEach(([id,data])=>{
 	db[id] = new user(id,data);
 })
 
