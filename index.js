@@ -24,7 +24,7 @@ app.get('/listen',(req,res)=>{
 app.get('/send',(req,res)=>{
 	
 	console.log(req.query['msg']);
-	
+	res.setHeader('Content-Type','text/html')
 	pendings.forEach(e=>{
 		e.end(req.query['msg'])
 	})
