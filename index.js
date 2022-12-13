@@ -14,6 +14,7 @@ const pendings = []
 // listener
 
 app.get(`/`,async (req,res)=>{
+	res.setHeader('Content-Type','text/html')
 	res.end(await readFile('pages/index.html','utf-8'));
 })
 
@@ -24,7 +25,6 @@ app.get('/listen',(req,res)=>{
 app.get('/send',(req,res)=>{
 	
 	console.log(req.query['msg']);
-	res.setHeader('Content-Type','text/html')
 	pendings.forEach(e=>{
 		e.end(req.query['msg'])
 	})
