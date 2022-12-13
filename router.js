@@ -1,15 +1,16 @@
 // @ts-check
-import { createServer } from "http";
-
+// import { readFile } from "fs/promises";
+// import { createServer } from "https";
+import { createServer, ServerResponse } from "http";
 
 export const init = () => new App();
-
 
 class App{
 	constructor(){
 		this.getlist = [];
 	}
 	
+	/** @param {string} url @param {(url: Url,res: ServerResponse)=>void} callback */
 	get(url,callback){
 		this.getlist.push([url,callback])
 	}
@@ -42,51 +43,5 @@ export class Url{
 		if (queries){
 			this.query = Object.fromEntries(queries)
 		}
-	}
-}
-
-export class user{
-	id = '';
-	channel = -1;
-	lastCh = 0;
-	action = 0;
-	history = [];
-	constructor(id,assign) {
-		this.id = id;
-		if (assign){
-			this.channel = assign.channel
-			this.lastCh = assign.lastCh
-			this.action = assign.action
-			this.history = assign.history
-		}
-	}
-	next(){
-		if (this.channel == -1) return this;
-		this.lastCh = this.channel;
-		this.channel = (this.channel + 1) % 4;
-		this.history = [...this.history,[this.channel,new Date().toString()]];
-		this.action++;
-		console.log(this.id,'next')
-		return this;
-	}
-	power(){
-		if (this.channel == -1){
-			this.channel = this.lastCh;
-			this.history = [...this.history,[this.channel,new Date().toString()]];
-		}else{
-			this.lastCh = this.channel;
-			this.channel = -1;
-			this.history = [...this.history,[this.channel,new Date().toString()]];
-		}
-		this.action++;
-		return this;
-	}
-	prev(){
-		if (this.channel == -1) return this;
-		this.lastCh = this.channel
-		this.channel = --this.channel < 0 ? 3 : this.channel;
-		this.history = [...this.history,[this.channel,new Date().toString()]];
-		this.action++;
-		return this;
 	}
 }

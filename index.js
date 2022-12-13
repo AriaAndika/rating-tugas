@@ -1,85 +1,45 @@
 // @ts-check
-import { init,user } from "./router.js";
-import { setTimeout } from "timers/promises";
-import { readFile } from "fs/promises";
+import { init } from "./router.js";
 import { ServerResponse } from "http";
+import { readFile } from "fs/promises";
 
 
 const app = init();
-const db = {}
 
-Object.entries(JSON.parse(await readFile('db.json','utf-8'))).forEach(([id,data])=>{
-	db[id] = new user(id,data);
-})
-
-
+/** @type {ServerResponse[]} */
+const pendings = []
 
 //!================================================================
 
 // listener
-/** 
- * @param { string } user
- * @link http://localhost:4040/pull?id=user
-*/
-app.get('/pull',
-	(/** @type {import("./router.js").Url} */ url,/** @type {ServerResponse} */ res)=>{
-	setcors(res)
-	initUser(url.query.id)
-	res.end( JSON.stringify(db[url.query.id]) )
+
+app.get(`/`,async (req,res)=>{
+	res.end(await readFile('pages/index.html','utf-8'));
 })
-/** 
- * @param { string } id 
- * @param { number } init
- * @link http://localhost:4040/listen?id=user&init=0
-*/
-app.get('/listen',async (url,res)=>{
-	setcors(res)
-	const id = url.query.id;
-	initUser(id);
-	// const current = parseInt(url.query.init);
-	const current = db[id].action;
+
+app.get('/listen',(req,res)=>{
+	pendings.push(res);
+})
+
+app.get('/send',(req,res)=>{
 	
-	while (current == db[id].action) await setTimeout(100);
-	res.end(JSON.stringify(db[id]));
+	console.log(req.query['msg']);
+	
+	pendings.forEach(e=>{
+		e.end(req.query['msg'])
+	})
+	
+	res.end(`sended ${req.query['msg']}`)
 })
 
-
-// controller
-/** 
- * @param { 'next' | 'prev' | 'power' } m
- * @link http://localhost:4040/set?m=next&id=user
-*/
-app.get('/set',(url,res)=>{
-	setcors(res)
-	initUser(url.query.id);
-	db[url.query.id][url.query.m]();
-	res.end(JSON.stringify(db[url.query.id]));
-})
-
-
-// records
-app.get('/all',(req,res)=>{
-	setcors(res)
-	res.end(JSON.stringify(db))
-})
-
-console.log(app.getlist)
-app.listen()
+app.listen(4040)
 
 //!================================FUNCTION================================
 
-const initUser = id => {
-	if (!db[id]){
-		db[id] = new user(id);
-	}
-}
 
-
-
-function setcors(res) {
-	res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
-	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
-	res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
-	res.setHeader('Access-Control-Allow-Headers', '*');
-	
-}
+// function setcors(res) {
+// 	res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
+// 	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+// 	res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
+// 	res.setHeader('Access-Control-Allow-Headers', '*');
+// }

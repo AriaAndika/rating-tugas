@@ -2,8 +2,8 @@
   "name": "rating",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
-  "type" : "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/AriaAndika/rating-tugas/issues"
   },
-  "homepage": "https://github.com/AriaAndika/rating-tugas#readme"
+  "homepage": "https://github.com/AriaAndika/rating-tugas#readme",
+  "dependencies": {
+    "socket.io": "^4.5.4",
+    "ws": "^8.11.0"
+  }
 }
