@@ -38,7 +38,7 @@ app.post('/write',(req,res)=>{
 app.get('/listen',(req,res)=>{
 	setcors(res)
 	// pendings.push(res);
-	res.end(`${state}|${lastMode}`)
+	res.end(`${process.env['state']}|${process.env['lastState']}`)
 })
 
 app.get('/send',(req,res)=>{
@@ -46,8 +46,9 @@ app.get('/send',(req,res)=>{
 	// pendings.forEach(e=>{
 	// 	e.end(req.query['msg'])
 	// })
-	state++;
-	lastMode = req.query['msg'];
+	process.env['state'] = `${parseInt(process.env['state']) + 1}`;
+	process.env['lastState'] = req.query['msg'];
+	// lastMode = req.query['msg'];
 	setcors(res)
 	res.end(`sended ${req.query['msg']}`)
 })
