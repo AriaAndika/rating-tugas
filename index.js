@@ -46,6 +46,7 @@ app.get('/send',(req,res)=>{
 	// pendings.forEach(e=>{
 	// 	e.end(req.query['msg'])
 	// })
+	state++;
 	lastMode = req.query['msg'];
 	setcors(res)
 	res.end(`sended ${req.query['msg']}`)
