@@ -10,6 +10,8 @@ const db = await readFile('./db.json').then(e=>JSON.parse(e));
 /** @type {ServerResponse[]} */
 const pendings = []
 
+let lastMode = '';
+
 //!================================================================
 
 // listener
@@ -29,14 +31,16 @@ app.post('/write',(req,res)=>{
 
 app.get('/listen',(req,res)=>{
 	setcors(res)
-	pendings.push(res);
+	// pendings.push(res);
+	res.end(lastMode)
 })
 
 app.get('/send',(req,res)=>{
 	console.log('ESP32:',req.query['msg']);
-	pendings.forEach(e=>{
-		e.end(req.query['msg'])
-	})
+	// pendings.forEach(e=>{
+	// 	e.end(req.query['msg'])
+	// })
+	lastMode = req.query['msg'];
 	setcors(res)
 	res.end(`sended ${req.query['msg']}`)
 })
