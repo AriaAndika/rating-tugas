@@ -11,6 +11,7 @@ const db = await readFile('./db.json').then(e=>JSON.parse(e));
 const pendings = []
 
 let lastMode = '';
+let state = 0;
 
 //!================================================================
 
@@ -23,6 +24,11 @@ app.get(`/`,async (req,res)=>{
 	res.end(await readFile('pages/index.html','utf-8'));
 })
 
+app.get('/init',(req,res)=>{
+	setcors(res);
+	res.end(`${state}`);
+})
+
 app.post('/write',(req,res)=>{
 	setcors(res);
 	write(req.body);
@@ -32,7 +38,7 @@ app.post('/write',(req,res)=>{
 app.get('/listen',(req,res)=>{
 	setcors(res)
 	// pendings.push(res);
-	res.end(lastMode)
+	res.end(`${state}|${lastMode}`)
 })
 
 app.get('/send',(req,res)=>{
